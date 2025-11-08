@@ -5,6 +5,11 @@ App Router와 Pages Router 중 **Pages Router를 이용한 API 라우팅 방식*
 
 ---
 
+
+https://github.com/user-attachments/assets/d202ac61-10bf-4530-8eaf-0d8f9bc82176
+
+
+
 ## 🚀 기술 스택
 
 | 분야            | 사용 기술                                      |
