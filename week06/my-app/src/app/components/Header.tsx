@@ -11,7 +11,7 @@ export default function Header() {
       </h1>
 
       <nav className="flex gap-4">
-        <Link href="/login" className="hoever:underline text-sm">
+        <Link href="/login" className="text-sm hover:underline">
           로그인
         </Link>
         <Link href="/signup" className="text-sm hover:underline">

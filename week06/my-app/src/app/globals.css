@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@layer base {
+  button {
+    @apply cursor-pointer;
+  }
+}
+
+@layer components {
+  .list-item {
+    @apply mb-1 rounded-lg bg-white p-5 opacity-100 shadow transition-all;
+  }
+
+  .btn-submit {
+    @apply cursor-pointer rounded-lg bg-amber-200 px-4 py-2;
+  }
+}
