@@ -6,7 +6,9 @@ const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
   {
+    extends: ['prettier'],
     plugins: {
+
       'simple-import-sort': simpleImportSort,
     },
     rules: {
