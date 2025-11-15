@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @layer base {
   button {
@@ -13,5 +13,19 @@
 
   .btn-submit {
     @apply cursor-pointer rounded-lg bg-amber-200 px-4 py-2;
+  }
+  .loginbtn{
+    @apply bg-[#dcdcdc] text-black border-0 px-4 py-2 rounded-md cursor-pointer transition-colors duration-200 hover:bg-[#999999]
+  }
+  .navbar {
+    @apply flex items-center justify-between rounded bg-white p-5 shadow-sm;
+  }
+
+  .navbar a {
+    @apply mr-3 text-black no-underline hover:underline;
+  }
+
+  .logo {
+    @apply text-lg font-bold;
   }
 }

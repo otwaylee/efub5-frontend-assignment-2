@@ -1,4 +1,11 @@
-const Write = () => {
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
+import { getServerSession } from 'next-auth';
+
+export default async function Write() {
+  let session = await getServerSession(authOptions);
+  if (session) {
+    console.log('Server:', session);
+  }
   return (
     <div className="flex flex-col gap-4">
       <h4 className="text-lg font-semibold">작성 페이지</h4>
@@ -26,6 +33,4 @@ const Write = () => {
       </form>
     </div>
   );
-};
-
-export default Write;
+}

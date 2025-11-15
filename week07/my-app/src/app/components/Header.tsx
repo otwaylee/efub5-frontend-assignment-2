@@ -1,22 +1,39 @@
-import Link from "next/link";
+'use client';
+import Link from 'next/link';
 
-import NavActions from "./NavActions";
+import NavActions from './NavActions';
+import LoginBtn from '../LoginBtn';
+import { Session } from 'next-auth';
+import LogoutBtn from '../LogoutBtn';
 
-export default function Header() {
+type HeaderProps = { session: Session | null };
+
+export default function Header({ session }: HeaderProps) {
   return (
-    <header className="shadow-b-md flex items-center justify-between border-b border-gray-300 bg-amber-50 px-6 py-4">
+    <header className="navbar bg-amber-100">
       <NavActions />
-      <h1 className="text-xl font-semibold">
-        <Link href="/">게시판</Link>
-      </h1>
+      <Link href="/" className="logo">
+        EFUB5 FORUM
+      </Link>
+      <nav className="flex items-center gap-4">
+        <Link href={'/list'}>List</Link>
+        <Link href={'/write'}>Write</Link>
 
-      <nav className="flex gap-4">
-        <Link href="/login" className="text-sm hover:underline">
-          로그인
-        </Link>
-        <Link href="/signup" className="text-sm hover:underline">
+        {session ? (
+          <div className="flex items-center gap-4">
+            <span className="text-yellow-900">
+              {session?.user?.name && `${session.user.name}님`}
+            </span>
+            <LogoutBtn />
+          </div>
+        ) : (
+          <LoginBtn />
+        )}
+
+        {/* //* 임시회원가입 기능 */}
+        {/*  <Link href="/signup" className="text-sm hover:underline">
           회원가입
-        </Link>
+        </Link> */}
       </nav>
     </header>
   );
