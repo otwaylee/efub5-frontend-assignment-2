@@ -1,25 +1,34 @@
 import { getPostById } from '@/app/services/postService';
-import type Post from '@/models/post';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
+import LikeBtn from '@/app/LikeBtn';
 
 interface Props {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 }
 
-const Detail = async ({ params }: Props) => {
+export default async function Detail({ params }: Props) {
   const { id } = await params;
-  let post: Post | null = null;
-  try {
-    post = await getPostById(id);
-  } catch (e: any) {
-    return <div>에러: {e.message}</div>;
-  }
+  const post = await getPostById(id);
+  const session = await getServerSession(authOptions);
 
   return (
-    <div>
-      <h1>{post.title}</h1>
-      <p>{post.content}</p>
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2 rounded-md bg-gray-200 p-4">
+        <h1>
+          <span className="font-semibold">제목:</span> {post.title}
+        </h1>
+        <p>
+          <span className="font-semibold">내용: </span>
+          <span>{post.content}</span>
+        </p>
+      </div>
+
+      <LikeBtn
+        postId={id}
+        currentUserEmail={session?.user?.email ?? null}
+        likes={post.likes}
+      />
     </div>
   );
-};
-
-export default Detail;
+}
