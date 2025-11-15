@@ -1,9 +1,9 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
+import { signIn, signOut } from 'next-auth/react';
 export default function LogoutBtn() {
   const onLogout = (): void => {
-    signIn('github');
+    signOut({ callbackUrl: '/' });
   };
   return (
     <button onClick={onLogout} className="loginbtn">

@@ -30,6 +30,7 @@ export default function Header({ session }: HeaderProps) {
           <LoginBtn />
         )}
 
+        <Link href={'/register'}>회원가입</Link>
         {/* //* 임시회원가입 기능 */}
         {/*  <Link href="/signup" className="text-sm hover:underline">
           회원가입
