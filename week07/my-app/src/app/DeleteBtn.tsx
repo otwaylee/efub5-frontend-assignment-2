@@ -6,11 +6,16 @@ interface Props {
 
 export default function DeleteBtn({ postId }: Props) {
   const handleDelete = async () => {
-    await fetch('/api/post/delete', {
+    const response = await fetch('/api/post/delete', {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ postId })
     });
+    if (!response.ok) {
+      const error = await response.json().catch(() => null);
+      alert(error?.message ?? '삭제에 실패했습니다.');
+      return;
+    }
     alert('삭제되었습니다.');
     location.reload();
   };

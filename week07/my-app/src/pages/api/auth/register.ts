@@ -8,10 +8,16 @@ export default async function handler(
 ) {
   if (req.method === 'POST') {
     const hash = await bcrypt.hash(req.body.password, 10);
-    req.body.password = hash;
+    const newUser = {
+      name: req.body.name,
+      email: req.body.email,
+      password: hash,
+      role: 'normal'
+    };
 
     let db = (await connectDB).db('forum');
-    await db.collection('user_cred').insertOne(req.body);
-    res.status(200).json('성공');
+    await db.collection('user').insertOne(newUser);
+    alert('회원가입에 성공했습니다!');
+    return res.redirect(302, '/');
   }
 }

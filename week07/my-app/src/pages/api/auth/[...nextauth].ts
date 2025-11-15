@@ -24,7 +24,7 @@ export const authOptions: AuthOptions = {
         }
         let db = (await connectDB).db('forum');
         let user = await db
-          .collection('user_cred')
+          .collection('user')
           .findOne({ email: credentials.email });
         if (!user) {
           console.log('해당 이메일은 없음');
@@ -38,7 +38,11 @@ export const authOptions: AuthOptions = {
           console.log('비번틀림');
           return null;
         }
-        return user;
+        return {
+          name: user.name,
+          email: user.email,
+          role: user.role ?? 'normal'
+        };
       }
     })
   ],
@@ -46,16 +50,38 @@ export const authOptions: AuthOptions = {
   callbacks: {
     jwt: async ({ token, user }) => {
       if (user) {
+        const db = (await connectDB).db('forum');
+        let role = (user as any).role ?? 'normal';
+        if (user.email) {
+          const existingUser = await db
+            .collection('user')
+            .findOne({ email: user.email });
+          if (!existingUser) {
+            await db.collection('user').insertOne({
+              email: user.email,
+              name: user.name ?? '',
+              role
+            });
+          } else {
+            role = existingUser.role ?? role;
+            if (!existingUser.role) {
+              await db
+                .collection('user')
+                .updateOne({ _id: existingUser._id }, { $set: { role: role } });
+            }
+          }
+        }
         token.user = {
           name: user.name || '',
-          email: user.email || ''
+          email: user.email || '',
+          role
         };
       }
       return token;
     },
     session: async ({ session, token }) => {
       if (token.user) {
-        session.user = token.user;
+        session.user = token.user as any;
       }
       return session;
     }

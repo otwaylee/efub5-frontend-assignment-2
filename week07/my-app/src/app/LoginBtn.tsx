@@ -1,13 +1,11 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
+import Link from 'next/link';
+
 export default function LoginBtn() {
-  const onLogin = (): void => {
-    signIn('github');
-  };
   return (
-    <button onClick={onLogin} className="loginbtn">
+    <Link href="/login" className="loginbtn">
       로그인
-    </button>
+    </Link>
   );
 }

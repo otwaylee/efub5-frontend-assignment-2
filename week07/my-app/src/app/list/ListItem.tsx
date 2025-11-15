@@ -18,7 +18,8 @@ export default async function ListItem({ result }: { result: WithId<Post>[] }) {
               <h4 className="text-lg font-medium">{post.title}</h4>
             </Link>
 
-            {session?.user?.email === post.author && (
+            {(session?.user?.email === post.author ||
+              session?.user?.role === 'admin') && (
               <div className="flex items-center gap-2">
                 <Link
                   href={`/edit/${post._id}`}
