@@ -40,7 +40,7 @@ export default function LikeBtn({ postId, currentUserEmail, likes }: Props) {
       onClick={handleLike}
       disabled={isPending}
       className={`w-fit rounded-md px-4 py-1 ${
-        isLiked ? 'bg-red-200' : 'bg-amber-300'
+        isLiked ? 'bg-red-200' : 'bg-amber-200'
       }`}
     >
       💓좋아요 {likeCount}개

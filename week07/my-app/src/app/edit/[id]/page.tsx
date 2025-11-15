@@ -1,6 +1,6 @@
-import { ObjectId } from "mongodb";
+import { ObjectId } from 'mongodb';
 
-import { postCollection } from "@/utils/database";
+import { postCollection } from '@/utils/database';
 
 export default async function Edit({
   params
@@ -28,13 +28,13 @@ export default async function Edit({
             defaultValue={result?.content}
           />
           <input
-            style={{ display: "none" }}
+            style={{ display: 'none' }}
             name="_id"
             defaultValue={result?._id.toString()}
           />
         </div>
         <button type="submit" className="btn-submit">
-          버튼
+          저장
         </button>
       </form>
     </div>
