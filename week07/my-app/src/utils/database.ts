@@ -2,14 +2,17 @@ import {
   MongoClient,
   type MongoClientOptions,
   type Db,
-  type Collection,
+  type Collection
 } from 'mongodb';
 import type Post from '@/models/post';
+import type Comment from '@/models/comment';
 
 const url: string = process.env.NEXT_PUBLIC_DB_CONN_STRING || '';
 const DB_NAME: string = process.env.NEXT_PUBLIC_DB_NAME || '';
 const COLLECTION_POST_NAME: string =
   process.env.NEXT_PUBLIC_COLLECTION_POST_NAME || '';
+const COLLECTION_COMMENT_NAME: string =
+  process.env.NEXT_PUBLIC_COLLECTION_COMMENT_NAME || 'comment';
 const options: MongoClientOptions = {};
 
 let client: MongoClient;
@@ -34,5 +37,7 @@ if (process.env.NODE_ENV === 'development') {
 const db: Db = (await connectDB).db(DB_NAME);
 const postCollection: Collection<Post> =
   db.collection<Post>(COLLECTION_POST_NAME);
+const commentCollection: Collection<Comment> =
+  db.collection<Comment>(COLLECTION_COMMENT_NAME);
 
-export { connectDB, postCollection };
+export { connectDB, postCollection, commentCollection };

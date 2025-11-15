@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 
 import Header from './components/Header';
+import SessionProvider from './SessionProvider';
 
 import './globals.css';
 import { getServerSession } from 'next-auth';
@@ -33,8 +34,10 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} bg-gray-50`}
       >
-        <Header session={session} />
-        <main className="mx-auto max-w-3xl py-8">{children}</main>
+        <SessionProvider session={session}>
+          <Header session={session} />
+          <main className="mx-auto max-w-3xl py-8">{children}</main>
+        </SessionProvider>
       </body>
     </html>
   );
